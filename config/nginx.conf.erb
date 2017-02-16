@@ -172,10 +172,6 @@ http {
       <% if ENV["NGINX_DEBUG"] %>add_header Ember-Cli-Denied on;<% end %>
     }
 
-    location /google {
-      return 301 $scheme://www.google.com;
-    }
-
     location / {
       expires -1;
 
@@ -195,5 +191,10 @@ http {
 
       <% if ENV["NGINX_DEBUG"] %>add_header Ember-Cli-Base-Location on;<% end %>
     }
+
+    location /google {
+      return 301 $scheme://www.google.com;
+    }
+
   }
 }
