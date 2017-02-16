@@ -84,6 +84,10 @@ http {
 
     rewrite ^/redirect_test1$ http://www.google.com redirect;
 
+    location = /redirect_testt {
+      return 301 $scheme://www.google.com;
+    }
+
     <% if ENV["API_URL"] %>
       location <%= ENV["API_PREFIX_PATH"] || "/api/" %> {
         proxy_pass <%= ENV["API_URL"] %>;
