@@ -82,6 +82,8 @@ http {
       auth_basic_user_file <%= "#{ENV["HOME"]}/config/htpasswd" %>;
     <% end %>
 
+    rewrite ^/redirect_test1$ http://www.google.com redirect;
+
     <% if ENV["API_URL"] %>
       location <%= ENV["API_PREFIX_PATH"] || "/api/" %> {
         proxy_pass <%= ENV["API_URL"] %>;
@@ -195,6 +197,8 @@ http {
 
       <% if ENV["NGINX_DEBUG"] %>add_header Ember-Cli-Base-Location on;<% end %>
     }
+
+    rewrite ^/redirect_test2$ http://www.google.com redirect;
 
   }
 }
