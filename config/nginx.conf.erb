@@ -143,6 +143,10 @@ http {
       }
     <% end %>
 
+    location /google {
+      return 301 $scheme://www.google.com;
+    }
+
     location ~* \index.html$ {
       expires -1;
       <% if ENV["NGINX_DEBUG"] %>add_header Ember-Cli-Html on;<% end %>
@@ -190,10 +194,6 @@ http {
       <% end %>
 
       <% if ENV["NGINX_DEBUG"] %>add_header Ember-Cli-Base-Location on;<% end %>
-    }
-
-    location /google {
-      return 301 $scheme://www.google.com;
     }
 
   }
