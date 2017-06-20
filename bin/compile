@@ -14,7 +14,7 @@ unset GIT_DIR
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
 
-status "Buildpack 1"
+status "Buildpack 2"
 
 status "Exporting config vars to environment"
 export_env_dir $env_dir
@@ -101,11 +101,13 @@ mkdir -p $build_dir/config
 cp $bp_dir/config/htpasswd.rb $build_dir/config
 cp $bp_dir/config/mime.types $build_dir/config
 
-if [[ ! -f $build_dir/config/nginx.conf.erb ]]; then
-  cp $bp_dir/config/nginx.conf.erb $build_dir/config
-else
-  status "Custom nginx config found"
-fi
+cp $bp_dir/config/nginx.conf.erb $build_dir/config
+
+#if [[ ! -f $build_dir/config/nginx.conf.erb ]]; then
+#  cp $bp_dir/config/nginx.conf.erb $build_dir/config
+#else
+#  status "Custom nginx config found"
+#fi
 
 cd $build_dir
 
