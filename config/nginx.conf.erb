@@ -82,10 +82,12 @@ http {
       auth_basic_user_file <%= "#{ENV["HOME"]}/config/htpasswd" %>;
     <% end %>
 
-    rewrite ^/redirect_test1$ http://www.google.com redirect;
-
-    location = /redirect_testt {
-      return 301 $scheme://www.google.com;
+    location /giphy/ {
+      resolver         8.8.8.8;
+      proxy_pass       https://giphy.com/gifs/;
+      proxy_set_header X-Real-IP       $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_buffering  off;
     }
 
     <% if ENV["API_URL"] %>
@@ -149,10 +151,6 @@ http {
       }
     <% end %>
 
-    location /google {
-      return 301 $scheme://www.google.com;
-    }
-
     location ~* \index.html$ {
       expires -1;
       <% if ENV["NGINX_DEBUG"] %>add_header Ember-Cli-Html on;<% end %>
@@ -201,8 +199,6 @@ http {
 
       <% if ENV["NGINX_DEBUG"] %>add_header Ember-Cli-Base-Location on;<% end %>
     }
-
-    rewrite ^/redirect_test2$ http://www.google.com redirect;
 
   }
 }
